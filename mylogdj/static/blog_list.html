@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+    我的网站
+{% endblock %}
+{% block nav_blog_active %}active{% endblock %}
+{% block content %}
+    {% for blog in blogs %}
+    <!-- 遍历显示所有博客 -->
+        <a href="{% url 'blog_detail' blog.pk %}">
+            <!-- 点文章名进入博客详细页面 -->
+            <h3>{{ blog.title }}</h3>
+        </a>
+        {# 字数截取通过过滤器控制，每个文字只显示前20个文字 #} 
+        <p>{{ blog.content|truncatechars:20 }}</p>
+
+    {# 如果没有博客  #} 
+
+    {% empty %}
+        <p>--暂无博客,敬请期待--</p>
+    {% endfor %}
+    <p>一共有{{ blogs |length }}篇博客</p>
+{% endblock %}
